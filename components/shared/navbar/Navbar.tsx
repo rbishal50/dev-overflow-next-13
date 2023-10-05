@@ -25,7 +25,7 @@ const Navbar = () => {
             afterSignOutUrl="/"
             appearance={{
               elements: {
-                avatarBox: "h-   w-10",
+                avatarBox: "h-10 w-10",
               },
               variables: {
                 colorPrimary: "#ff7000",
