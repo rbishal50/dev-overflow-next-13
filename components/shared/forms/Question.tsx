@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 import { QuestionsSchema } from "@/lib/validations";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
+import { createQuestion } from "@/lib/actions/question.action";
 
 const type: any = "create";
 
@@ -37,11 +38,12 @@ const Question = () => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+  async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
     setIsSubmitting(true);
 
     try {
       // make an async call to the api -> create a question
+      await createQuestion({});
       // contain all form data
       // navigate to home page
     } catch (error) {
@@ -115,7 +117,7 @@ const Question = () => {
         />
         <FormField
           control={form.control}
-          name="title"
+          name="explanation"
           render={({ field }) => (
             <FormItem className="flex w-full flex-col gap-3">
               <FormLabel className="paragraph-semibold text-dark400_light800">
@@ -128,6 +130,8 @@ const Question = () => {
                     // @ts-ignore
                     editorRef.current = editor;
                   }}
+                  onBlur={field.onBlur}
+                  onEditorChange={(content) => field.onChange(content)}
                   initialValue=""
                   init={{
                     height: 350,
