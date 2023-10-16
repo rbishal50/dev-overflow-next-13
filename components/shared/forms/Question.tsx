@@ -75,9 +75,7 @@ const Question = ({ mongoUserId }: Props) => {
     if (e.key === "Enter" && field.name === "tags") {
       e.preventDefault();
       const tagInput = e.target as HTMLInputElement;
-      console.log({ tagInput });
       const tagValue = tagInput.value.trim();
-      console.log({ tagValue });
 
       if (tagValue !== "") {
         if (tagValue.length > 15) {
