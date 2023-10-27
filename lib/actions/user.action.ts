@@ -1,6 +1,6 @@
 "use server";
 
-import User, { IUser } from "@/database/user.model";
+import User from "@/database/user.model";
 import { connectToDatabase } from "../mongoose";
 import {
   CreateUserParams,
@@ -85,7 +85,7 @@ export async function getAllUsers(_params: GetAllUsersParams) {
     connectToDatabase();
 
     // const { page = 1, pageSize = 20, filter, searchQuery } = params;
-    const users: IUser[] = await User.find({}).sort({
+    const users = await User.find({}).sort({
       createdAt: -1,
     });
     return { users };

@@ -40,3 +40,8 @@ export interface GetAllUsersParams {
   filter?: string;
   searchQuery?: string;
 }
+
+export interface GetTopInteractedTagsParams {
+  userId: string;
+  limit?: number;
+}
