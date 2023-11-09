@@ -4,6 +4,9 @@ import Link from "next/link";
 import { getQuestionById } from "@/lib/actions/question.action";
 import Metric from "@/components/shared/Metric";
 import { getTimestamp, formatAndDivideNumber } from "@/lib/utils";
+import ParseHTML from "@/components/shared/ParseHTML";
+import RenderTag from "@/components/shared/RenderTag";
+import Answer from "@/components/shared/forms/Answer";
 
 const QuestionDetails = async ({ params }: { params: { id: string } }) => {
   const result = await getQuestionById({ questionId: params.id });
@@ -56,6 +59,18 @@ const QuestionDetails = async ({ params }: { params: { id: string } }) => {
           textStyles="small-medium text-dark400_light800"
         />
       </div>
+      <ParseHTML data={result.content} />
+      <div className="mt-8 flex flex-wrap gap-2">
+        {result.tags.map((tag: any) => (
+          <RenderTag
+            key={tag._id}
+            _id={tag._id}
+            name={tag.name}
+            showCount={false}
+          />
+        ))}
+      </div>
+      <Answer />
     </>
   );
 };
