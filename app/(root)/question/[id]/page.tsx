@@ -9,6 +9,7 @@ import RenderTag from "@/components/shared/RenderTag";
 import Answer from "@/components/shared/forms/Answer";
 import { auth } from "@clerk/nextjs";
 import { getUserById } from "@/lib/actions/user.action";
+import AllAnswers from "@/components/shared/AllAnswers";
 
 const QuestionDetails = async ({ params }: { params: { id: string } }) => {
   const result = await getQuestionById({ questionId: params.id });
@@ -77,6 +78,10 @@ const QuestionDetails = async ({ params }: { params: { id: string } }) => {
           />
         ))}
       </div>
+      <AllAnswers
+        questionId={result._id}
+        totalAnswers={result.answers.length}
+      />
       <Answer
         question={result.content}
         questionId={JSON.stringify(result._id)}
