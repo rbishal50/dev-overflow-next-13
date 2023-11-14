@@ -8,6 +8,10 @@ export interface GetQuestionsParams {
   filter?: string;
 }
 
+export interface GetQuestionByIdParams {
+  questionId: string;
+}
+
 export interface CreateQuestionParams {
   title: string;
   content: string;
@@ -51,4 +55,18 @@ export interface GetAllTagsParams {
   pageSize?: number;
   filter?: string;
   searchQuery?: string;
+}
+
+export interface CreateAnswerParams {
+  content: string;
+  author: string; // User ID
+  question: string; // Question ID
+  path: string;
+}
+
+export interface GetAnswersParams {
+  questionId: string;
+  sortBy?: string;
+  page?: number;
+  pageSize?: number;
 }
