@@ -41,13 +41,13 @@ const QuestionDetails = async ({ params }: { params: { id: string } }) => {
           </Link>
           <div className="text-dark300_light700 justify-end ">
             <Votes
-              type="question"
+              type="Question"
               itemId={JSON.stringify(result._id)}
               userId={JSON.stringify(mongoUser._id)}
               upvotes={result.upvotes.length}
               downvotes={result.downvotes.length}
-              hasUpvoted={result.upvotes.includes(mongoUser._id)}
-              hasDownvoted={result.downvotes.includes(mongoUser._id)}
+              hasUpVoted={result.upvotes.includes(mongoUser._id)}
+              hasDownVoted={result.downvotes.includes(mongoUser._id)}
               hasSaved={mongoUser?.saved.includes(result._id)}
             />
           </div>

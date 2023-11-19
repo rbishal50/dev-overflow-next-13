@@ -101,12 +101,12 @@ export async function getQuestionById(params: GetQuestionByIdParams) {
 export async function upvoteQuestion(params: QuestionVoteParams) {
   try {
     connectToDatabase();
-    const { questionId, userId, hasupVoted, hasdownVoted, path } = params;
+    const { questionId, userId, hasUpVoted, hasDownVoted, path } = params;
 
     let updateQuery = {};
-    if (hasupVoted) {
+    if (hasUpVoted) {
       updateQuery = { $pull: { upvotes: userId } };
-    } else if (hasdownVoted) {
+    } else if (hasDownVoted) {
       updateQuery = {
         $pull: { downvotes: userId },
         $push: { upvotes: userId },
@@ -134,12 +134,12 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
 export async function downvoteQuestion(params: QuestionVoteParams) {
   try {
     connectToDatabase();
-    const { questionId, userId, hasupVoted, hasdownVoted, path } = params;
+    const { questionId, userId, hasUpVoted, hasDownVoted, path } = params;
 
     let updateQuery = {};
-    if (hasdownVoted) {
+    if (hasDownVoted) {
       updateQuery = { $pull: { downvotes: userId } };
-    } else if (hasupVoted) {
+    } else if (hasUpVoted) {
       updateQuery = {
         $pull: { upvotes: userId },
         $push: { downvotes: userId },
