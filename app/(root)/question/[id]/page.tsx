@@ -93,6 +93,7 @@ const QuestionDetails = async ({ params }: { params: { id: string } }) => {
       <AllAnswers
         questionId={result._id}
         totalAnswers={result.answers.length}
+        userId={mongoUser._id}
       />
       <Answer
         question={result.content}
