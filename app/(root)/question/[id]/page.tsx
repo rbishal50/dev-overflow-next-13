@@ -10,6 +10,7 @@ import Answer from "@/components/shared/forms/Answer";
 import { auth } from "@clerk/nextjs";
 import { getUserById } from "@/lib/actions/user.action";
 import AllAnswers from "@/components/shared/AllAnswers";
+import Votes from "@/components/shared/Votes";
 
 const QuestionDetails = async ({ params }: { params: { id: string } }) => {
   const result = await getQuestionById({ questionId: params.id });
@@ -38,7 +39,18 @@ const QuestionDetails = async ({ params }: { params: { id: string } }) => {
               {result.author.name}
             </p>
           </Link>
-          <div className="text-dark300_light700 justify-end">VOTING - TODO</div>
+          <div className="text-dark300_light700 justify-end ">
+            <Votes
+              type="Question"
+              itemId={JSON.stringify(result._id)}
+              userId={JSON.stringify(mongoUser._id)}
+              upvotes={result.upvotes.length}
+              downvotes={result.downvotes.length}
+              hasUpVoted={result.upvotes.includes(mongoUser._id)}
+              hasDownVoted={result.downvotes.includes(mongoUser._id)}
+              hasSaved={mongoUser?.saved.includes(result._id)}
+            />
+          </div>
         </div>
         <h2 className="h2-semibold text-dark200_light900 mt-3.5 w-full text-left">
           {result.title}
@@ -81,6 +93,7 @@ const QuestionDetails = async ({ params }: { params: { id: string } }) => {
       <AllAnswers
         questionId={result._id}
         totalAnswers={result.answers.length}
+        userId={mongoUser._id}
       />
       <Answer
         question={result.content}
