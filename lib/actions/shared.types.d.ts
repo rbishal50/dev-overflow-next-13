@@ -86,3 +86,17 @@ export interface AnswerVoteParams {
   hasDownVoted: boolean;
   path: string;
 }
+
+export interface ToggleSaveQuestionParams {
+  userId: string;
+  questionId: string;
+  path: string;
+}
+
+export interface GetSavedQuestionsParams {
+  clerkId: string;
+  page?: number;
+  pageSize?: number;
+  filter?: string;
+  searchQuery?: string;
+}
