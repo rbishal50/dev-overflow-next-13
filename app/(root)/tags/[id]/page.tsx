@@ -3,7 +3,6 @@ import { getQuestionsByTagId } from "@/lib/actions/tag.action";
 import LocalSearch from "@/components/shared/search/LocalSearch";
 import QuestionCard from "@/components/shared/cards/QuestionCard";
 import NoResult from "@/components/shared/NoResult";
-import { IQuestion } from "@/database/question.model";
 import { URLProps } from "@/types";
 
 const Page = async ({ params, searchParams }: URLProps) => {
@@ -27,7 +26,7 @@ const Page = async ({ params, searchParams }: URLProps) => {
       </div>
       <div className="mt-10 flex w-full flex-col gap-6">
         {result.questions.length > 0 ? (
-          result.questions.map((question: IQuestion) => (
+          result.questions.map((question: any) => (
             <QuestionCard
               key={question._id}
               _id={question._id}
