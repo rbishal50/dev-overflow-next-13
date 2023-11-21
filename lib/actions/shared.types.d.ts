@@ -49,6 +49,12 @@ export interface GetAllUsersParams {
   searchQuery?: string;
 }
 
+export interface GetUserStatsParams {
+  userId: string;
+  page?: number;
+  pageSize?: number;
+}
+
 export interface GetTopInteractedTagsParams {
   userId: string;
   limit?: number;
