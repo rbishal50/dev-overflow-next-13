@@ -28,6 +28,10 @@ export interface CreateUserParams {
   picture: string;
 }
 
+export interface GetUserByIdParams {
+  userId: string;
+}
+
 export interface UpdateUserParams {
   clerkId: string;
   updateData: Partial<IUser>;
