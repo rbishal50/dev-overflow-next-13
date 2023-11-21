@@ -79,14 +79,18 @@ const Page = async ({ params, searchParams }: URLProps) => {
         <Tabs defaultValue="top-posts" className="flex-1">
           <TabsList className="background-light800_dark400 min-h-[42px] p-1">
             <TabsTrigger value="top-posts" className="tab">
-              <QuestionsTab />
+              Top Posts
             </TabsTrigger>
             <TabsTrigger value="answers" className="tab">
-              Answers...
+              Answers
             </TabsTrigger>
           </TabsList>
           <TabsContent value="top-posts">
-            Make changes to your account here.
+            <QuestionsTab
+              searchParams={searchParams}
+              userId={userInfo.user._id}
+              clerkId={clerkId ?? undefined}
+            />
           </TabsContent>
           <TabsContent value="answers">Change your password here.</TabsContent>
         </Tabs>

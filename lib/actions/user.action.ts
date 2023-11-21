@@ -206,7 +206,7 @@ export async function getUserQuestions(params: GetUserStatsParams) {
       .populate("tags", "_id name")
       .populate("author", "_id clerkId name picture");
 
-    return { totalQuestions, userQuestions };
+    return { totalQuestions, questions: userQuestions };
   } catch (error) {
     console.log(error);
     throw error;
