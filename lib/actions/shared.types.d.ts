@@ -28,6 +28,10 @@ export interface CreateUserParams {
   picture: string;
 }
 
+export interface GetUserByIdParams {
+  userId: string;
+}
+
 export interface UpdateUserParams {
   clerkId: string;
   updateData: Partial<IUser>;
@@ -43,6 +47,12 @@ export interface GetAllUsersParams {
   pageSize?: number;
   filter?: string;
   searchQuery?: string;
+}
+
+export interface GetUserStatsParams {
+  userId: string;
+  page?: number;
+  pageSize?: number;
 }
 
 export interface GetTopInteractedTagsParams {
