@@ -6,6 +6,8 @@ import { URLProps } from "@/types";
 import { SignedIn, auth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import { getJoinedDate } from "@/lib/utils";
+import ProfileLink from "@/components/shared/ProfileLink";
 
 const Page = async ({ params, searchParams }: URLProps) => {
   const { userId: clerkId } = auth();
@@ -23,13 +25,36 @@ const Page = async ({ params, searchParams }: URLProps) => {
             className="rounded-full object-cover"
           />
           <div className="mt-3">
-            <h2>{userInfo.user.name}</h2>
-            <p>@{userInfo.user.username}</p>
+            <h2 className="h2-bold text-dark100_light900">
+              {userInfo.user.name}
+            </h2>
+            <p className="paragraph-regular text-dark200_light800">
+              @{userInfo.user.username}
+            </p>
             <div className="mt-5 flex flex-wrap items-center justify-start gap-5">
-              {userInfo.user.location && <>Location</>}
-              {userInfo.user.joined.toString()}
+              {userInfo.user.portfolioWebsite && (
+                <ProfileLink
+                  title="Portfolio"
+                  imgUrl="/assets/icons/link.svg"
+                  href={userInfo.user.portfolioWebsite}
+                />
+              )}
+              {userInfo.user.location && (
+                <ProfileLink
+                  title={userInfo.user.location}
+                  imgUrl="/assets/icons/location.svg"
+                />
+              )}
+              <ProfileLink
+                title={getJoinedDate(userInfo.user.joined)}
+                imgUrl="/assets/icons/calendar.svg"
+              />
             </div>
-            {userInfo.user.bio && <p>{userInfo.user.bio}</p>}
+            {userInfo.user.bio && (
+              <p className="paragraph-regular text-dark400_light800 mt-8">
+                {userInfo.user.bio}
+              </p>
+            )}
           </div>
         </div>
         <div className="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3">
