@@ -81,6 +81,11 @@ export interface GetAnswersParams {
   pageSize?: number;
 }
 
+export interface DeleteQuestionParams {
+  questionId: string;
+  path: string;
+}
+
 export interface QuestionVoteParams {
   questionId: string;
   userId: string;

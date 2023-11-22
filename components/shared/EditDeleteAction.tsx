@@ -10,7 +10,12 @@ interface Props {
 
 const EditDeleteAction = ({ type, itemId }: Props) => {
   const handleEdit = () => {};
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    if (type === "Question") {
+      // delete question
+    }
+    // else delete answer
+  };
 
   return (
     <div className="flex items-center justify-end gap-3 max-sm:w-full">
