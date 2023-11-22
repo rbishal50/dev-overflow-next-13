@@ -16,6 +16,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ProfileSchema } from "@/lib/validations";
+import { usePathname, useRouter } from "next/navigation";
+import { updateUser } from "@/lib/actions/user.action";
 
 interface Props {
   clerkId: string;
@@ -24,6 +26,8 @@ interface Props {
 
 const Profile = ({ clerkId, user }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   const parsedUser = JSON.parse(user);
 
@@ -38,8 +42,28 @@ const Profile = ({ clerkId, user }: Props) => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof ProfileSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof ProfileSchema>) {
+    setIsSubmitting(true);
+    const { name, username, portfolioWebsite, bio, location } = values;
+
+    try {
+      await updateUser({
+        clerkId,
+        updateData: {
+          name,
+          username,
+          portfolioWebsite,
+          bio,
+          location,
+        },
+        path: pathname,
+      });
+      router.back();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -63,7 +87,7 @@ const Profile = ({ clerkId, user }: Props) => {
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
@@ -82,7 +106,7 @@ const Profile = ({ clerkId, user }: Props) => {
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
@@ -102,7 +126,7 @@ const Profile = ({ clerkId, user }: Props) => {
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
@@ -121,7 +145,7 @@ const Profile = ({ clerkId, user }: Props) => {
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
@@ -131,16 +155,17 @@ const Profile = ({ clerkId, user }: Props) => {
           render={({ field }) => (
             <FormItem className="space-y-3.5">
               <FormLabel className="paragraph-semibold text-dark400_light800">
-                Username <span className="text-primary-500">*</span>
+                Bio <span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="What's spectial about you?"
+                  rows={5}
                   className="no-focus paragraph-regular light-border-2 background-light700_dark300 text-dark300_light700 min-h-[56px]"
                   {...field}
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500" />
             </FormItem>
           )}
         />
