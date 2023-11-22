@@ -102,6 +102,11 @@ export interface AnswerVoteParams {
   path: string;
 }
 
+export interface DeleteAnswerParams {
+  answerId: string;
+  path: string;
+}
+
 export interface ToggleSaveQuestionParams {
   userId: string;
   questionId: string;
