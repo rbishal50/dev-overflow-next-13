@@ -20,6 +20,13 @@ export interface CreateQuestionParams {
   path: string;
 }
 
+export interface EditQuestionParams {
+  questionId: string;
+  title: string;
+  content: string;
+  path: string;
+}
+
 export interface CreateUserParams {
   clerkId: string;
   name: string;
@@ -81,6 +88,11 @@ export interface GetAnswersParams {
   pageSize?: number;
 }
 
+export interface DeleteQuestionParams {
+  questionId: string;
+  path: string;
+}
+
 export interface QuestionVoteParams {
   questionId: string;
   userId: string;
@@ -94,6 +106,11 @@ export interface AnswerVoteParams {
   userId: string;
   hasUpVoted: boolean;
   hasDownVoted: boolean;
+  path: string;
+}
+
+export interface DeleteAnswerParams {
+  answerId: string;
   path: string;
 }
 
