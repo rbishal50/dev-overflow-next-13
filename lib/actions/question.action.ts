@@ -7,6 +7,7 @@ import {
   CreateQuestionParams,
   DeleteAnswerParams,
   DeleteQuestionParams,
+  EditQuestionParams,
   GetQuestionByIdParams,
   GetQuestionsParams,
   QuestionVoteParams,
@@ -56,6 +57,25 @@ export async function createQuestion(params: CreateQuestionParams) {
     // Increment author's reputation by +5 for creating a question - todo
 
     // Rervalidate
+    revalidatePath(path);
+  } catch (error) {
+    //
+  }
+}
+
+export async function editQuestion(params: EditQuestionParams) {
+  try {
+    connectToDatabase();
+    const { questionId, title, content, path } = params;
+    const question = await Question.findById(questionId);
+
+    if (!question) throw new Error("Question not found!");
+
+    question.title = title;
+    question.content = content;
+
+    await question.save();
+
     revalidatePath(path);
   } catch (error) {
     //
