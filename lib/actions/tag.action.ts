@@ -83,8 +83,8 @@ export async function getPopularTags() {
       {
         $project: { name: 1, noOfQuestions: { $size: "$questions" } },
       },
-      { $sort: { $noOfQuestions: -1 } },
-      { $limit: 2 },
+      { $sort: { noOfQuestions: -1 } },
+      { $limit: 5 },
     ]);
     return tags;
   } catch (error) {
