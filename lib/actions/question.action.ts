@@ -82,7 +82,7 @@ export async function editQuestion(params: EditQuestionParams) {
   }
 }
 
-export async function getQuestions(params: GetQuestionsParams) {
+export async function getQuestions(_params: GetQuestionsParams) {
   try {
     connectToDatabase();
     const questions = await Question.find({})
@@ -224,6 +224,23 @@ export async function deleteAnswer(params: DeleteAnswerParams) {
     await Interaction.deleteMany({ answer: answerId });
 
     revalidatePath(path);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+export async function getHotQuestions() {
+  try {
+    connectToDatabase();
+    const hotQuestions = await Question.find({})
+      .sort({
+        views: -1,
+        upvotes: -1,
+      })
+      .limit(5);
+
+    return { questions: hotQuestions };
   } catch (error) {
     console.log(error);
     throw error;
