@@ -240,7 +240,7 @@ export async function getHotQuestions() {
       })
       .limit(5);
 
-    return { questions: hotQuestions };
+    return hotQuestions;
   } catch (error) {
     console.log(error);
     throw error;
