@@ -186,7 +186,10 @@ export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
 export async function getSavedQuestions(params: GetSavedQuestionsParams) {
   try {
     connectToDatabase();
-    const { clerkId, searchQuery, filter } = params;
+    const { clerkId, searchQuery, filter, page = 1, pageSize = 20 } = params;
+
+    // Calc the no. of items to skip
+    const skipAmount = (page - 1) * pageSize;
 
     const query: FilterQuery<typeof Question> = searchQuery
       ? { title: { $regex: new RegExp(searchQuery, "i") } }
@@ -221,6 +224,8 @@ export async function getSavedQuestions(params: GetSavedQuestionsParams) {
       match: query,
       options: {
         sort: sortOptions,
+        skip: skipAmount,
+        limit: pageSize,
       },
       populate: [
         { path: "tags", model: Tag, select: "_id name" },
@@ -228,9 +233,17 @@ export async function getSavedQuestions(params: GetSavedQuestionsParams) {
       ],
     });
 
+    const { saved: totalSavedQuestions = [] } = await User.findOne({ clerkId })
+      .select("saved")
+      .exec();
+
     if (!user) throw new Error("User not found!");
     const savedQuestions = user.saved;
-    return { questions: savedQuestions };
+
+    const isNext =
+      totalSavedQuestions.length > skipAmount + savedQuestions.length;
+
+    return { questions: savedQuestions, isNext };
   } catch (error) {
     console.log(error);
     throw error;
