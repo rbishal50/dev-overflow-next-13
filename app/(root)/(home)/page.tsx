@@ -16,6 +16,8 @@ export default async function Home({ searchParams }: SearchParamsProps) {
     filter: searchParams.filter,
   });
 
+  const pageNumber = searchParams?.page ? +searchParams.page : 1;
+
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -65,7 +67,9 @@ export default async function Home({ searchParams }: SearchParamsProps) {
           />
         )}
       </div>
-      <Pagination />
+      <div className="mt-10">
+        <Pagination pageNumber={pageNumber} isNext={result.isNext} />
+      </div>
     </>
   );
 }
