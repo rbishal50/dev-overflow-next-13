@@ -21,6 +21,8 @@ const QuestionDetails = async ({ params, searchParams }: URLProps) => {
     mongoUser = await getUserById({ userId: clerkId });
   }
 
+  const pageNumber = searchParams?.page ? +searchParams.page : 1;
+
   return (
     <>
       <div className="flex-start w-full flex-col">
@@ -96,6 +98,7 @@ const QuestionDetails = async ({ params, searchParams }: URLProps) => {
         totalAnswers={result.answers.length}
         userId={mongoUser._id}
         filter={searchParams?.filter ?? ""}
+        page={pageNumber}
       />
       <Answer
         question={result.content}
