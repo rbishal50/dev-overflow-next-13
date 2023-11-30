@@ -238,6 +238,7 @@ export async function getSavedQuestions(params: GetSavedQuestionsParams) {
       .exec();
 
     if (!user) throw new Error("User not found!");
+
     const savedQuestions = user.saved;
 
     const isNext =
